@@ -1,10 +1,13 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import {
+  Awaitable,
+  RequestInternal,
+  User,
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
@@ -47,9 +50,33 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      name: "ku-login",
+      credentials: {
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "เช่น b63xxxxxxxx หรือ regxxx",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "รหัสผ่านบัญชีผู้ใช้เครือข่ายนนทรี",
+        },
+      },
+      async authorize(credentials, req) {
+        const { username, password } = credentials as {
+          username: string;
+          password: string;
+        };
+
+        const user = {
+          id: "1",
+          username: "b63xxxxxxxx",
+        };
+
+        return user;
+      },
     }),
     /**
      * ...add more providers here.
