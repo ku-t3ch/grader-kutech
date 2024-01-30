@@ -7,6 +7,13 @@ import { withAuth } from "next-auth/middleware";
 // This function can be marked `async` if using `await` inside
 export default withAuth(
   async function middleware(req: NextRequest) {
+    if (req.nextUrl.pathname.startsWith("/admin")) {
+        const token = await getToken({ req, secret: process.env.SECRET });
+        if (token?.isAdmin) {
+            return NextResponse.next();
+        }
+        return NextResponse.rewrite(new URL("/404", req.url));
+    }
     // if (req.nextauth.token && req.nextUrl.pathname.startsWith("/staff")) {
 
     //   if (isStaff) {

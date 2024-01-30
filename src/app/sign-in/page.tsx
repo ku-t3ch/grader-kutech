@@ -1,10 +1,10 @@
 "use client"
 import React from 'react'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function page() {
-    const param = useSearchParams();
+    const param = useSearchParams();    
 
     return (
         <div className='flex min-h-screen justify-center items-center'>

@@ -34,12 +34,12 @@ datasource db {
 // }
 
 model User {
-    id            String       @id @default(uuid())
-    name          String?
-    email         String?      @unique
-    image         String?
-    submissions   Submission[]
-    Tasks         Tasks[]
+    id          String       @id @default(uuid())
+    name        String?
+    email       String?      @unique
+    image       String?
+    submissions Submission[]
+    Tasks       Tasks[]
 }
 
 model TestCase {
@@ -70,14 +70,16 @@ model Submission {
 
 model Tasks {
     id        String     @id @default(uuid())
-    statement String
+    name      String
+    statement String?
     code      String
+    language  String
     testCase  TestCase[]
     owner     User       @relation(fields: [ownerId], references: [id])
     ownerId   String
 }
 
 model Admin {
-    id String @id @default(uuid())
+    id    String @id @default(uuid())
     email String @unique
 }

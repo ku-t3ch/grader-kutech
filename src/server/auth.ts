@@ -7,19 +7,20 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "@/env";
 import { db } from "./db";
+import { DefaultJWT } from "next-auth/jwt";
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      isAdmin: boolean;
     } & DefaultSession["user"];
   }
+}
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+declare module "next-auth/jwt" {
+  interface JWT extends DefaultJWT {
+    isAdmin: boolean;
+  }
 }
 
 /**
@@ -28,14 +29,34 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
-    session: ({ session, user }) => {
-      console.log(session);
+    session: ({ session, token }) => {
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+        session.user.isAdmin = token.isAdmin;
+      }
       return session;
     },
-    jwt: ({ token, user }) => {
-      console.log(token);
-      return token;
+    jwt: async ({ token, user }) => {
+      const isAdmin = await db.admin.findUnique({
+        where: {
+          email: token.email!,
+        },
+      });
+
+      if (isAdmin === null) {
+        return {
+          ...token,
+        };
+      }
+
+      return {
+        ...token,
+        isAdmin: isAdmin.email === token.email,
+      };
     },
     async signIn({ user, account, profile, email, credentials }) {
       if (!profile?.email?.endsWith("@ku.th")) {
