@@ -16,6 +16,7 @@ export default function AdminLayout({
                 <div className="w-full h-[1px] bg-white"></div>
                 <div className="flex flex-col gap-2">
                     <Link href={`/admin/problem`} className="btn btn-primary btn-sm btn-outline">Problem</Link>
+                    <Link href={`/admin/testcase`} className="btn btn-primary btn-sm btn-outline">Test Case</Link>
                     <Link href={`/admin/user`} className="btn btn-primary btn-sm btn-outline">User</Link>
                 </div>
             </div>

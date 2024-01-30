@@ -6,6 +6,6 @@ import React from 'react'
 export default function BackButton() {
     const { back } = useRouter()
     return (
-        <button onClick={back} className='btn btn-primary btn-sm'><ChevronLeftIcon /> back</button>
+        <button onClick={back} className='btn btn-primary btn-sm w-fit'><ChevronLeftIcon /> back</button>
     )
 }

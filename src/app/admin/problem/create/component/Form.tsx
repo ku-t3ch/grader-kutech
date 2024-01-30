@@ -3,14 +3,20 @@ import { api } from '@/trpc/react';
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddProblemSchemaType, addProblemZod } from '@/server/api/routers/zod/problem';
+import { AddProblemSchemaType, addProblemZod } from '@/server/api/routers/zod/problemZod';
+import toast from 'react-hot-toast';
 
 export default function Form() {
     const { register, handleSubmit, formState: { errors } } = useForm<AddProblemSchemaType>({ resolver: zodResolver(addProblemZod) });
     const getRuntimesApi = api.piston.getRuntimes.useQuery();
-    const onSubmit = (data: AddProblemSchemaType) => {
-        console.log(data);
-        
+    const addProblemApi = api.problem.addProblem.useMutation()
+    const onSubmit =  (data: AddProblemSchemaType) => {
+        const key = toast.loading("Submitting...");
+        addProblemApi.mutate(data, {
+            onSuccess: () => {
+                toast.success("Submitted", { id: key });
+            }
+        })
     };
 
     return (
@@ -18,6 +24,10 @@ export default function Form() {
             <div className='flex flex-col gap-1'>
                 <div className='text-base'>Problem Name</div>
                 <input className='input input-bordered' {...register("problem_name")} required />
+            </div>
+            <div className='flex flex-col gap-1'>
+                <div className='text-base'>Problem Statement Link</div>
+                <input className='input input-bordered' {...register("problem_statement")} required />
             </div>
             <div className='flex flex-col gap-1'>
                 <div className='text-base'>Problem Language</div>

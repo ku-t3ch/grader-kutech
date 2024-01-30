@@ -4,7 +4,7 @@ import {
   protectedAdminProcedure,
   protectedProcedure,
 } from "../trpc";
-import { addProblemZod } from "./zod/problem";
+import { addProblemZod } from "./zod/problemZod";
 import { db } from "@/server/db";
 
 // submit
