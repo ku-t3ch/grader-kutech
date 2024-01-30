@@ -14,7 +14,7 @@ export default async function Header() {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
                         <li><Link href={"/"}>Home</Link></li>
-                        {session?.user.isAdmin && <li><Link href={"/admin"}>Admin</Link></li>}
+                        {session?.user.isAdmin && <li><Link href={"/admin/problem"}>Admin</Link></li>}
                     </ul>
                 </div>
             </div>
