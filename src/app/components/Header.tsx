@@ -1,6 +1,7 @@
 import { getServerAuthSession } from '@/server/auth';
 import Link from 'next/link';
 import React from 'react'
+import MenuSignOut from './MenuSignOut';
 
 export default async function Header() {
     const session = await getServerAuthSession();
@@ -31,7 +32,7 @@ export default async function Header() {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
                         <li><a>{session?.user.email}</a></li>
-                        <li><a>SignOut</a></li>
+                        <MenuSignOut />
                     </ul>
                 </div>
 

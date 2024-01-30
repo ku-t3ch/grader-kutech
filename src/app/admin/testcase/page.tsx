@@ -1,4 +1,5 @@
 import { db } from '@/server/db'
+import { unstable_noStore } from 'next/cache'
 import Link from 'next/link'
 import React from 'react'
 
@@ -13,6 +14,7 @@ const getAllProblem = async () => {
 
 
 export default async function Problem({ params }: { params: { id: string } }) {
+    unstable_noStore()
     const problemAll = await getAllProblem()
     return (
         <div className='w-full flex flex-col gap-3'>

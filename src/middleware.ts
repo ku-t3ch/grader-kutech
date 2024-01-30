@@ -8,27 +8,13 @@ import { withAuth } from "next-auth/middleware";
 export default withAuth(
   async function middleware(req: NextRequest) {
     if (req.nextUrl.pathname.startsWith("/admin")) {
-        const token = await getToken({ req, secret: process.env.SECRET });
-        if (token?.isAdmin) {
-            return NextResponse.next();
-        }
-        return NextResponse.rewrite(new URL("/404", req.url));
+      const token = await getToken({ req, secret: process.env.SECRET });
+      if (token?.isAdmin) {
+        return NextResponse.next();
+      }
+      return NextResponse.rewrite(new URL("/404", req.url));
     }
-    // if (req.nextauth.token && req.nextUrl.pathname.startsWith("/staff")) {
-
-    //   if (isStaff) {
-    //     return NextResponse.next();
-    //   } else {
-    //     return NextResponse.rewrite(new URL("/404", req.nextUrl));
-    //   }
-
-    //   const token = await getToken({ req, secret: process.env.SECRET });
-    //   if (token?.email === "teerut.sr@ku.th") {
-    //     return NextResponse.next();
-    //   }
-    //   return NextResponse.rewrite(new URL("/404", req.url));
     return NextResponse.next();
-    // }
   },
   {
     callbacks: {

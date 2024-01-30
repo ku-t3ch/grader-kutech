@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./components/Header";
 import { Toaster } from "react-hot-toast";
+import { NextRequest } from "next/server";
+import { headers } from "next/headers";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -18,10 +20,12 @@ export const metadata = {
 };
 
 export default function RootLayout({
-    children,
+    children
 }: {
     children: React.ReactNode;
 }) {
+    
+
     return (
         <html lang="en" data-theme="dark">
             <body className={`font-sans ${inter.variable}`}>

@@ -18,10 +18,8 @@ export default async function Problem({ params }: { params: { id: string } }) {
     return (
         <div className='w-full flex flex-col gap-3'>
             <BackButton />
-            <div>
-                {detail?.name}
-            </div>
-            <TestCaseForm code={detail?.code!} />
+
+            <TestCaseForm detail={detail!} />
         </div>
     )
 }

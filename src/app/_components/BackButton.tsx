@@ -1,4 +1,5 @@
 "use client"
+import { Tasks } from '@prisma/client'
 import { ChevronLeftIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'

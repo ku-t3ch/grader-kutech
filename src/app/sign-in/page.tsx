@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation';
 
 export default function page() {
     const param = useSearchParams();    
