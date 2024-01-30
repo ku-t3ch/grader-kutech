@@ -21,6 +21,18 @@ const main = async () => {
             email,
           },
         });
+        const adminInUser = await prisma.user.findUnique({
+            where : {
+                email
+            }
+        })
+        if (!adminInUser) {
+            await prisma.user.create({
+                data: {
+                    email
+                }
+            })
+        }
         break;
       case "remove":
         await prisma.admin.delete({
