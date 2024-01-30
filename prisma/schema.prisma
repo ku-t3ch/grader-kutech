@@ -74,6 +74,7 @@ model Tasks {
     statement String?
     code      String
     language  String
+    version   String
     testCase  TestCase[]
     owner     User       @relation(fields: [ownerId], references: [id])
     ownerId   String

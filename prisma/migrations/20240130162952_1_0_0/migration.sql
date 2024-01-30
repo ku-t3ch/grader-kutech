@@ -40,8 +40,11 @@ CREATE TABLE "Submission" (
 -- CreateTable
 CREATE TABLE "Tasks" (
     "id" TEXT NOT NULL,
-    "statement" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "statement" TEXT,
     "code" TEXT NOT NULL,
+    "language" TEXT NOT NULL,
+    "version" TEXT NOT NULL,
     "ownerId" TEXT NOT NULL,
 
     CONSTRAINT "Tasks_pkey" PRIMARY KEY ("id")

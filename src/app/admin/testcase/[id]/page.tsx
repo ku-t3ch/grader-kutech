@@ -1,7 +1,8 @@
 import BackButton from '@/app/_components/BackButton'
 import { db } from '@/server/db'
 import { assert } from 'console'
-import React from 'react'
+import React, { useState } from 'react'
+import TestCaseForm from './components/TestCaseForm'
 
 const getDetail = async (id: string) => {
     const result = await db.tasks.findUnique({
@@ -20,13 +21,7 @@ export default async function Problem({ params }: { params: { id: string } }) {
             <div>
                 {detail?.name}
             </div>
-            <div className='flex flex-col w-full gap-3'>
-                <div className='flex w-full gap-3'>
-                    <textarea className="textarea textarea-bordered bg-base-200 w-full" placeholder="Input"></textarea>
-                    <textarea className="textarea textarea-bordered bg-base-200  w-full" placeholder="Output" disabled></textarea>
-                </div>
-                <button className='btn btn-primary'>Add Test Case</button>
-            </div>
+            <TestCaseForm code={detail?.code!} />
         </div>
     )
 }
